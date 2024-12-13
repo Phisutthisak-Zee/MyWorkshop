@@ -1,0 +1,50 @@
+import numpy as np
+
+student_data = [
+    ['644244112', 'นายชวกร  เมืองถาวร'],
+    ['644244115', 'นายญาณวุฒิ  บริบูรณ์'],
+    ['674244101', 'นางสาวกนกวรรณ  พรหมเทพ'],
+    ['674244102', 'นางสาวเกศินี  รุ่งเจริญดี'],
+    ['674244103', 'นางสาวจิดาภา  ยิ้มย่อง'],
+    ['674244104', 'นางสาวณาตาฌา  เรืองชัย'],
+    ['674244105', 'นางสาวณิชนัทนท์  แสงทอง']
+]
+
+midterm = np.array([[10], [9], [5], [10], [10], [10], [7]])
+final_score = np.array([[60], [55], [49], [70], [66], [59], [70]])
+
+# คำนวณคะแนนรวม
+score = midterm + final_score
+
+# เกรดที่ต้องการ
+def grade(score):
+    if score >= 80:
+        return 'A'
+    elif score >= 75:
+        return 'B+'
+    elif score >= 70:
+        return 'B'
+    elif score >= 65:
+        return 'C+'
+    elif score >= 60:
+        return 'C'
+    elif score >= 55:
+        return 'D+'
+    elif score >= 50:
+        return 'D'
+    else:
+        return 'E'
+
+# แสดงผลลัพธ์สำหรับแต่ละนักศึกษา
+grades = []
+for i, student in enumerate(student_data):
+    student_score = score[i][0]
+    student_grade = grade(student_score)
+    grades.append(student_grade)
+    print(f"รหัส: {student[0]}, ชื่อนามสกุล: {student[1]}, คะแนน: {student_score}, เกรด: {student_grade}")
+
+# แปลง student_data เป็น numpy array และเพิ่มคะแนนรวม
+student_np = np.array(student_data)
+student_np = np.core.defchararray.add(student_np[:, 0], student_np[:, 1])
+student_np = np.column_stack((student_np, np.array(grades)))
+print(student_np)
